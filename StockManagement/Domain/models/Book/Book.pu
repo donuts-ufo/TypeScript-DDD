@@ -1,45 +1,17 @@
-@startuml BookAggregation
+@startuml Book
 
-title 書籍集約 (Book Aggregation)
+!include ./BookId/BookId.pu
+!include ./Title/Title.pu
+!include ./Price/Price.pu
 
-package "書籍集約(BookAggregation)"{
-    ' エンティティの定義
-    class "Book(書籍)" as Book << (R,Red) RootEntity >> {
-        BookID: BookID
-        Tite: タイトル
-        Price: 価格
-    }
-
-    class "Stock(在庫)" as Stock << (E,green) Entity >> {
-        StockID: StockID
-        QuantityAvailable: 在庫数
-        Status: ステータス
-    }
-
-    ' 属性の定義
-    class "BookID" as BookID {
-        + value: string
-    }
-
-    class "Title(タイトル)" as Title {
-        + value: string
-    }
-
-    class "Price(価格)" as Price {
-        + value: number
-    }
-
-    class "Status(ステータス)" as Status {
-        + value: Enum { InStock, LowStock, OutOfStock }
-    }
-
-    class "StockID" as StockID {
-        + value: string
-    }
-
-    class "QuantityAvailable(在庫数)" as QuantityAvailable {
-        + value: number
-    }
+class "Book(書籍)" as Book << (R,red) RootEntity >> {
+    BookId: BookId
+    Title: タイトル
+    Price: 価格
 }
 
-@endiml
+Book *-down- BookId
+Book *-down- Title
+Book *-down- Price
+
+@enduml
